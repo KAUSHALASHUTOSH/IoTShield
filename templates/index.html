@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>Welcome to IoTShield</h1>
+    <p>Detect and report open network ports to keep your smart devices secure from potential vulnerabilities.</p>
+    <a href="{{ url_for('scan') }}" class="btn btn-primary btn-lg mt-3">Start Scanning</a>
+</div>
+{% endblock %}

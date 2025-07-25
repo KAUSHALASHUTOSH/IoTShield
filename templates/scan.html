@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>Start a New Scan</h2>
+    <form action="/scan" method="POST">
+        <div class="form-group">
+            <input type="text" class="form-control" name="ip_range" placeholder="Enter IP Range (e.g., 192.168.1.0/24)">
+        </div>
+        <button type="submit" class="btn btn-primary">Scan</button>
+    </form>
+
+    {% if results %}
+        <h3 class="mt-4">Scan Results</h3>
+        <ul class="list-group">
+            {% for result in results %}
+                <li class="list-group-item">
+                    <strong>{{ result.ip }}:</strong> {{ result.status }} {{ result.warning }}
+                    <ul>
+                        {% for detail in result.risk_details %}
+                            <li>{{ detail }}</li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <h3 class="mt-4">Scan History (Last 5)</h3>
+    <ul class="list-group">
+        {% for entry in history %}
+            <li class="list-group-item">
+                <strong>{{ entry.ip }}</strong> - {{ entry.results | length }} devices found
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
